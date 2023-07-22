@@ -50,9 +50,11 @@ module.exports.createFilm = (req, res, next) => {
     });
 };
 
-module.exports.getFilms = (_, res, next) => {
-  Film.find({})
-    .populate(['owner'])
+module.exports.getFilms = (req, res, next) => {
+  const { _id } = req.user;
+
+  Film.find({ owner: _id })
+    .populate(['owner', '_id'])
     .then((films) => {
       res
         .status(OK_CODE)
@@ -72,7 +74,7 @@ module.exports.deleteFilm = (req, res, next) => {
       if (film.owner.toString() !== userId) {
         throw new ForbiddenError('Нельзя удалить чужую карточку');
       }
-      Film.findByIdAndRemove(filmId).then(() => res.status(OK_CODE).send({ data: film }));
+      return Film.findByIdAndRemove(filmId).then(() => res.status(OK_CODE).send({ data: film }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
