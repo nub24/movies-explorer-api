@@ -32,6 +32,7 @@ module.exports.createUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при регистрации'));
       } else if (err.code === 11000) {
+        console.log(err);
         next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
         next(err);
