@@ -20,6 +20,7 @@ module.exports.createFilm = (req, res, next) => {
     nameRU,
     nameEN,
   } = req.body;
+
   const owner = req.user._id;
 
   Film.create({

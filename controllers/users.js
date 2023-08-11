@@ -81,7 +81,7 @@ module.exports.getUserInfo = (req, res, next) => {
         throw new NotFoundError('Пользователь не найден!');
       }
       const { email, name } = userData;
-      res.send({ email, name });
+      res.send({ email, name, userId });
     })
     .catch(next);
 };
