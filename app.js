@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cors = require('cors');
-const rateLimit = require('./middlewares/rateLimit');
+// const rateLimit = require('./middlewares/rateLimit');
 const router = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 app.use(helmet());
-app.use(rateLimit);
+// app.use(rateLimit);
 
 app.use('/', router);
 
